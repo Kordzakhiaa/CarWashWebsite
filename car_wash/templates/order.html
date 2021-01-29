@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <br>
+    {% for order in orders %}
+        <li>დაწყების დრო : {{ order.order_start_date }}</li>
+        <li>დასრულების დრო: {{ order.order_end_date }}</li>
+        <li>მრეცხავი : {{ order.washer }}</li>
+        <li>დამკვეთი : {{ order.customer }}</li>
+        <li>მანქანის დეტალები : {{ order.car_details }}</li>
+    {% endfor %}
+{% endblock body %}

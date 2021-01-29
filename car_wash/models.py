@@ -2,7 +2,8 @@ from django.db import models
 
 
 class CarWasher(models.Model):
-    name = models.CharField(max_length=200,)
+    name = models.CharField(max_length=200)
+    # salary = 
 
     def __str__(self):
         return self.name
@@ -10,8 +11,6 @@ class CarWasher(models.Model):
 
 class Customer(models.Model):
     name = models.CharField(max_length=200)
-    # car = models.OneToOneField(Car, max_length=200, on_delete=models.CASCADE)
-    # order = models.ForeignKey(Order, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -24,6 +23,12 @@ class Car(models.Model):
         ('hatchback', 'hatchback')
     )
 
+    # PRICES = (
+    #     ('crossover', 20),
+    #     ('sedan', 15),
+    #     ('hatchback', 10)
+    # )
+
     car_type = models.CharField(max_length=200, null=False, choices=TYPES)
     license_plate = models.CharField(max_length=30, null=False)
     car_owner = models.OneToOneField(
@@ -34,7 +39,14 @@ class Car(models.Model):
 
 
 class Order(models.Model):
-    order_start_date = models.DateTimeField(verbose_name="Order Start Date")
-    order_end_date = models.DateTimeField(verbose_name="Order End Date")
+    STATUS = (
+        ('Pending', 'Pending'),
+        ('Finished', 'Finished'),
+    )
+
     washer = models.ForeignKey(CarWasher, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    order_start_date = models.DateTimeField(verbose_name="Order Start Date")
+    order_end_date = models.DateTimeField(verbose_name="Order End Date")
+    status = models.CharField(max_length=200, null=True, choices=STATUS)
+    # car_details = models.OneToOneField(Car, on_delete=models.CASCADE)
