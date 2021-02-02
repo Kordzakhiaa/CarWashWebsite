@@ -1,6 +1,41 @@
 {% extends 'base.html' %}
 
-
 {% block body %}
-    <h1>ORDERS PAGE</h1>
+
+        <br>
+<div class="col-md-9">
+    <div class=""></div>
+		<h3><strong>All Orders</strong></h3>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_order' %}">Create Order</a>
+            <table class="table">
+				<tr>
+					<th>Customers</th>
+					<th>Car license plate</th>
+					<th>Washers</th>
+					<th>Wash Type</th>
+                    <th>Start Date</th>
+					<th>End Date</th>
+					<th>Status</th>
+				</tr>
+
+				{% for order in orders %}
+					<tr>
+						<td>{{ order.customer }}</td>
+						<td>{{ order.car }}</td>
+						<td>{{ order.washer }}</td>
+						<td>{{ order.wash_type }}</td>
+						<td>{{ order.order_start_date }}</td>
+						<td>{{ order.order_end_date }}</td>
+						<td>{{ order.status }}</td>
+					</tr>
+
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+</div>
+
 {% endblock body %}

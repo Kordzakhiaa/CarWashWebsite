@@ -6,8 +6,13 @@ def home(request):
     return render(request, 'home.html')
 
 
+def create_order(request):
+    return render(request, 'create_order.html')
+
+
 def order(request):
     orders = Order.objects.all()
+    orders.filter()
     return render(request, 'order.html', {'orders': orders})
 
 

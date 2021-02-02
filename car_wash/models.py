@@ -39,7 +39,7 @@ class Car(models.Model):
     license_plate = models.CharField(max_length=30, null=False)
 
     def __str__(self):
-        return f"{self.license_plate}>"
+        return f"{self.license_plate}"
 
 
 class Order(models.Model):
