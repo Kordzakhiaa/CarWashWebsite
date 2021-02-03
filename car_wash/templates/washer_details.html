@@ -11,12 +11,16 @@
             <table class="table">
 				<tr>
                     <th>ID</th>
+                    <th>Name</th>
+                    <th>Washed Cars</th>
+                    <th>Earned Money</th>
 				</tr>
-					<tr>
-                        {% for order in orders %}
-                            <td>{{ order }}.</td>
-                        {% endfor %}
-					</tr>
+                <tr>
+                    <td>{{ washer_by_id.id }}</td>
+					<td>{{ washer_by_id.name }}</td>
+                    <td>{{ washer_by_id.orders.count }}</td>
+                    <td>{{ earned_money}}</td>
+                </tr>
 			</table>
 		</div>
 	</div>

@@ -12,26 +12,23 @@ def create_order(request):
 
 def washer_detail(request, pk: int):
     washer_by_id = CarWasher.objects.get(pk=pk)
-    order_count = washer_by_id.orders.all().count()
-    orders = Order.objects.values_list('order_price')
+    filter_by_washer_name = Order.objects.filter(washer__name=washer_by_id.name)
+    earned_money = 0
+    for i in filter_by_washer_name:
+        earned_money += i.order_price
     context = {
         'washer_by_id': washer_by_id,
-        'order_count': order_count,
-        'orders': orders,
+        'earned_money': earned_money
     }
     return render(request, 'washer_details.html', context)
 
 
 def order(request):
     orders = Order.objects.all()
+
     return render(request, 'order.html', {'orders': orders})
 
 
 def customer(request):
     customers = Customer.objects.all()
     return render(request, 'customer.html', {'customers': customers})
-
-
-def carwasher(request):
-    car_washers = CarWasher.objects.all()
-    return render(request, 'carwasher.html', {'car_washers': car_washers})
