@@ -14,12 +14,18 @@
                     <th>Name</th>
                     <th>Washed Cars</th>
                     <th>Earned Money</th>
+                    <th>Weekly Quantity</th>
+                    <th>Monthly Quantity</th>
+                    <th>Yearly Quantity</th>
 				</tr>
                 <tr>
                     <td>{{ washer_by_id.id }}</td>
 					<td>{{ washer_by_id.name }}</td>
                     <td>{{ washer_by_id.orders.count }}</td>
                     <td>{{ earned_money}}</td>
+                    <td>{{ weekly }}</td>
+                    <td>{{ monthly }}</td>
+                    <td>{{ yearly }}</td>
                 </tr>
 			</table>
 		</div>
