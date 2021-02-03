@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+        <br>
+<div class="col-md-9">
+    <div class=""></div>
+		<h3><strong>Detail Page</strong></h3>
+		<hr>
+		<div class="card card-body">
+            <table class="table">
+				<tr>
+                    <th>ID</th>
+				</tr>
+					<tr>
+                        {% for order in orders %}
+                            <td>{{ order }}.</td>
+                        {% endfor %}
+					</tr>
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock body %}

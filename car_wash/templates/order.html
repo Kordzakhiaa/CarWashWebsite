@@ -11,6 +11,7 @@
 			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_order' %}">Create Order</a>
             <table class="table">
 				<tr>
+                    <th>ID</th>
 					<th>Customers</th>
 					<th>Car license plate</th>
 					<th>Washers</th>
@@ -22,9 +23,10 @@
 
 				{% for order in orders %}
 					<tr>
+                        <td>{{ order.pk }}.</td>
 						<td>{{ order.customer }}</td>
 						<td>{{ order.car }}</td>
-						<td>{{ order.washer }}</td>
+						<td><a href="{% url 'washer-detail' order.washer.id %}" class="btn">{{ order.washer }}</a></td>
 						<td>{{ order.wash_type }}</td>
 						<td>{{ order.order_start_date }}</td>
 						<td>{{ order.order_end_date }}</td>

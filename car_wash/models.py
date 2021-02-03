@@ -5,8 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 class CarWasher(models.Model):
     name = models.CharField(max_length=200)
 
-    # salary = models.DecimalField(max_digits=4, decimal_places=4)
-
     def __str__(self):
         return self.name
 
@@ -47,7 +45,7 @@ class Order(models.Model):
     washer = models.ForeignKey(CarWasher, on_delete=models.CASCADE, related_name='orders')
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, related_name='orders')
     wash_type = models.ForeignKey(WashType, on_delete=models.PROTECT, related_name='orders', default=None)
-    order_price = models.DecimalField(max_digits=4, decimal_places=2, verbose_name=_("Price"), default=None)
+    order_price = models.DecimalField(max_digits=4, decimal_places=2, verbose_name=_("Price"), default=None, blank=True)
     created_date = models.DateTimeField(auto_now=True, verbose_name=_("Created Date"))
     order_start_date = models.DateTimeField(verbose_name=_("Schedule start time"))
     order_end_date = models.DateTimeField(verbose_name=_("Schedule end time"))
