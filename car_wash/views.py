@@ -49,10 +49,23 @@ def create_order(request):
             form.save()
             return redirect('order_list/')
 
-    return render(request, 'create_order.html', {'form': form})
+    return render(request, 'order_form.html', {'form': form})
 
 
-def delete_order(request, pk):
+def update_order(request, pk):
+    order = Order.objects.get(id=pk)
+    form = OrderForm(instance=order)
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect(home)
+
+    context = {'form': form}
+    return render(request, 'order_form.html', context)
+
+
+def delete_order(request, pk: int):
     order = Order.objects.get(id=pk)
     if request.method == 'POST':
         order.delete()

@@ -2,22 +2,12 @@
 {% load static %}
 {% block body %}
     <br>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card card-body">
-                <div class="alert alert-danger">
-                  <strong>Are you sure you want to delete "{{ order }}"?</strong>
-                </div>
-
-                <form action="{% url 'car_wash:delete_order' order.id %}" method="POST">
-                {% csrf_token %}
-
-                    <a href="{% url 'car_wash:order_list' %}" class="btn btn-sm btn-secondary">Cancel</a>
-
-                    <input type="submit" name="Confirm" class="btn btn-sm btn-danger">
-                </form>
-            </div>
-        </div>
+    <div class="alert alert-danger">
+        <strong>Are you sure you want to delete "{{ order }}"?</strong>
     </div>
-
+    <form action="{% url 'car_wash:delete_order' order.id %}" method="POST">
+        {% csrf_token %}
+        <a href="{% url 'car_wash:order_list' %}" class="btn btn-sm btn-secondary">Cancel</a>
+        <input type="submit" name="Confirm" class="btn btn-sm btn-danger">
+    </form>
 {% endblock body %}
