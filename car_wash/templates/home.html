@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block body %}
 <br>
 <br>
@@ -7,6 +7,8 @@
         <h2>Hello Guest</h2>
         <p>Welcome, this is a car wash site, you can place an order and our service staff will definitely help you. Good Luck</p>
         <p>To See All Orders <a href="{% url 'car_wash:order_list' %}" class="btn btn-info"><strong>Press Here</strong></a></p>
+        <br>
+        <img src="{% static 'images/home.png' %}">
     </div>
 
 {% endblock body %}
