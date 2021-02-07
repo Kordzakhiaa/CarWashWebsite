@@ -3,7 +3,7 @@
 {% block body %}
     <br>
     <div class="alert alert-danger">
-        <strong>Are you sure you want to delete "{{ order }}"?</strong>
+        <strong>Are you sure you want to delete "{{ order }}" order?</strong>
     </div>
     <form action="{% url 'car_wash:delete_order' order.id %}" method="POST">
         {% csrf_token %}

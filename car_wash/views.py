@@ -47,7 +47,7 @@ def create_order(request):
         form = OrderForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('order_list/')
+            return redirect('car_wash:order_list')
 
     return render(request, 'order_form.html', {'form': form})
 
@@ -59,7 +59,7 @@ def update_order(request, pk):
         form = OrderForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
-            return redirect(home)
+            return redirect('car_wash:order_list')
 
     context = {'form': form}
     return render(request, 'order_form.html', context)
@@ -69,7 +69,7 @@ def delete_order(request, pk: int):
     order = Order.objects.get(id=pk)
     if request.method == 'POST':
         order.delete()
-        return redirect(home)
+        return redirect('car_wash:order_list')
     context = {'order': order}
     return render(request, 'delete.html', context)
 
