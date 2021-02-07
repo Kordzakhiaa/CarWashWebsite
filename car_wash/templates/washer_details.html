@@ -2,7 +2,7 @@
 
 {% block body %}
 
-        <br>
+    <br>
 <div class="col-md-9">
     <div class=""></div>
 		<h3><strong>Detail Page</strong></h3>
@@ -14,6 +14,7 @@
                     <th>Name</th>
                     <th>Washed Cars</th>
                     <th>Earned Money</th>
+                    <th>Today's Quantity</th>
                     <th>Weekly Quantity</th>
                     <th>Monthly Quantity</th>
                     <th>Yearly Quantity</th>
@@ -23,6 +24,7 @@
 					<td>{{ washer_by_id.name }}</td>
                     <td>{{ washer_by_id.orders.count }}</td>
                     <td>{{ earned_money}}</td>
+                    <td>{{ today }}</td>
                     <td>{{ weekly }}</td>
                     <td>{{ monthly }}</td>
                     <td>{{ yearly }}</td>
@@ -30,7 +32,5 @@
 			</table>
 		</div>
 	</div>
-
-</div>
 
 {% endblock body %}

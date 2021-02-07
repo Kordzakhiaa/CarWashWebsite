@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block body %}
-
-        <br>
-<div class="col-md-9">
+{% load static %}
+    <br>
+<a style='display:inline' class="btn btn-success float-right" href="{% url 'car_wash:create_order' %}" >+ Add Order</a>
+<div class="col-md-11">
 		<h3><strong>All Orders</strong></h3>
 		<hr>
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_order' %}">Create Order</a>
             <table class="table">
 				<tr>
                     <th>ID</th>
@@ -18,18 +18,21 @@
                     <th>Start Date</th>
 					<th>End Date</th>
 					<th>Status</th>
+                    <th>Update</th>
+					<th>Remove</th>
 				</tr>
-
 				{% for order in orders %}
 					<tr>
                         <td>{{ order.pk }}.</td>
 						<td>{{ order.customer }}</td>
 						<td>{{ order.car }}</td>
-						<td><a href="{% url 'washer-detail' order.washer.id %}" class="btn">{{ order.washer }}</a></td>
+						<td><a href="{% url 'car_wash:washer-detail' order.washer.id %}" class="btn"><img src="{% static 'images/washer.png' %}" height="70">{{ order.washer }}</a></td>
 						<td>{{ order.wash_type }}</td>
 						<td>{{ order.order_start_date }}</td>
 						<td>{{ order.order_end_date }}</td>
 						<td>{{ order.status }}</td>
+                        <td><a class="btn btn-sm btn-info" href="" >Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'car_wash:delete_order' order.id %}" >Delete</a></td>
 					</tr>
 				{% endfor %}
 			</table>
@@ -37,6 +40,5 @@
         <strong>If you want to see our washers details, Please click on their names</strong>
 		</div>
 	</div>
-</div>
 
 {% endblock body %}

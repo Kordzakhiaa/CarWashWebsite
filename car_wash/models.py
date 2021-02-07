@@ -47,8 +47,8 @@ class Order(models.Model):
     wash_type = models.ForeignKey(WashType, on_delete=models.PROTECT, related_name='orders', default=None)
     order_price = models.DecimalField(max_digits=4, decimal_places=2, verbose_name=_("Price"), default=None, blank=True)
     created_date = models.DateTimeField(auto_now=True, verbose_name=_("Created Date"))
-    order_start_date = models.DateTimeField(verbose_name=_("Schedule start time"))
-    order_end_date = models.DateTimeField(verbose_name=_("Schedule end time"))
+    order_start_date = models.DateTimeField(verbose_name=_("Start time"))
+    order_end_date = models.DateTimeField(verbose_name=_("End time"))
     status = models.CharField(max_length=200, default=None)
 
     def __str__(self):

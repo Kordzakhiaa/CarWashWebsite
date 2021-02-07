@@ -1,15 +1,14 @@
-from datetime import datetime, timedelta
-from django.shortcuts import render
+from datetime import datetime
+
+from .forms import OrderForm
+from django.db.models import Q
+from django.shortcuts import render, redirect
 from .models import *
 from car_wash.get_date import date
 
 
 def home(request):
     return render(request, 'home.html')
-
-
-def create_order(request):
-    return render(request, 'create_order.html')
 
 
 def washer_detail(request, pk: int):
@@ -23,19 +22,48 @@ def washer_detail(request, pk: int):
     context = {
         'washer_by_id': washer_by_id,
         'earned_money': earned_money,
-        "weekly": orders.filter(created_date__range=[date(7), today]).count(),
-        "monthly": orders.filter(created_date__range=[date(30), today]).count(),
-        "yearly": orders.filter(created_date__range=[date(365), today]).count()
+        'today': orders.filter(created_date__range=[date(1), today]).count(),
+        'weekly': orders.filter(created_date__range=[date(7), today]).count(),
+        'monthly': orders.filter(created_date__range=[date(30), today]).count(),
+        'yearly': orders.filter(created_date__range=[date(365), today]).count()
     }
     return render(request, 'washer_details.html', context)
 
 
-def order(request):
+def order_list(request):
     orders = Order.objects.all()
 
-    return render(request, 'order.html', {'orders': orders})
+    return render(request, 'order_list.html', {'orders': orders})
 
 
 def customer(request):
     customers = Customer.objects.all()
     return render(request, 'customer.html', {'customers': customers})
+
+
+def create_order(request):
+    form = OrderForm()
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('order_list/')
+
+    return render(request, 'create_order.html', {'form': form})
+
+
+def delete_order(request, pk):
+    order = Order.objects.get(id=pk)
+    if request.method == 'POST':
+        order.delete()
+        return redirect(home)
+    context = {'order': order}
+    return render(request, 'delete.html', context)
+
+# def search(request):
+#     washer_q = Q()
+#     q = request.GET.get('q')
+#
+#     if q:
+#         washer_q &= Order.objects.filter(Q(washer__name__icontains=q))
+#     return render(request, 'order_list.html', {'names': washer_q})

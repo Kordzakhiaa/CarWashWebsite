@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <br>
-    <h1 style="text-align: center"><strong>Coming Soon</strong></h1>
-    <div class="">
-    <a style='display:inline' class="btn btn-success float-right" href="#" >+ Create Order</a>
-    </div>
+<br>
+<form action="" method="POST" >
+    {% csrf_token %}
+    {{ form }}
+    <input class="btn btn-sm btn-success" type="submit" name="submit">
+</form>
 {% endblock body %}
