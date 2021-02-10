@@ -11,5 +11,6 @@ urlpatterns = [
     path('washers/<int:pk>/', washer_detail, name='washer-detail'),
     path('update_order/<int:pk>', update_order, name='update_order'),
     path('delete/<int:pk>', delete_order, name='delete_order'),
-    # path('search/', search, name='search')
+    path('contact/', contact, name='contact'),
+    path('about/', about, name='about')
 ]

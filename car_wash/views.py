@@ -80,3 +80,11 @@ def delete_order(request, pk: int):
 #     if q:
 #         washer_q &= Order.objects.filter(Q(washer__name__icontains=q))
 #     return render(request, 'order_list.html', {'names': washer_q})
+
+
+def contact(request):
+    return render(request, 'contact.html')
+
+
+def about(request):
+    return render(request, 'about.html')
