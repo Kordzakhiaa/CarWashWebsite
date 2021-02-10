@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from .forms import OrderForm
+from .forms import OrderForm, CarForm
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from .models import *
@@ -73,6 +73,7 @@ def delete_order(request, pk: int):
     context = {'order': order}
     return render(request, 'delete.html', context)
 
+
 # def search(request):
 #     washer_q = Q()
 #     q = request.GET.get('q')
@@ -80,6 +81,17 @@ def delete_order(request, pk: int):
 #     if q:
 #         washer_q &= Order.objects.filter(Q(washer__name__icontains=q))
 #     return render(request, 'order_list.html', {'names': washer_q})
+
+
+def add_car(request):
+    form = CarForm()
+    if request.method == "POST":
+        form = CarForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('car_wash:create_order')
+
+    return render(request, 'add_car.html', {'form': form})
 
 
 def contact(request):
