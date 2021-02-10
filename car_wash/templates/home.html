@@ -1,14 +1,34 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
+    <style>
+     .card .read-more:hover{
+         font-size: 14px;
+    }
+     .card:hover{
+         box-shadow: 12px 12px 36px;
+         transform:scale(1.03);
+    }
+     .card{
+         border:1px solid black;
+         transition:.4s;
+         margin: 3rem;
+    }
+
+    </style>
 <br>
 <br>
     <div style="text-align: center;">
-        <h2>Hello Guest</h2>
-        <p>Welcome, this is a car wash site, you can place an order and our service staff will definitely help you. Good Luck</p>
-        <p>To See All Orders <a href="{% url 'car_wash:order_list' %}" class="btn btn-info"><strong>Press Here</strong></a></p>
-        <br>
-        <img src="{% static 'images/home.png' %}">
+         <div class="card-container mx-auto mt-5">
+            <div class="card" style="width: 18rem;">
+            <img src="{% static 'images/home.png' %}" class="card-img-top" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card with stretched link</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="{% url 'car_wash:order_list' %}" class="btn btn-primary stretched-link">See Profile</a>
+            </div>
+            </div>
+         </div>
     </div>
 
 {% endblock body %}
