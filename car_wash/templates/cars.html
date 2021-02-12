@@ -25,7 +25,12 @@
 					</tr>
 				{% endfor %}
 			</table>
-            <br>
+            {% if cars.has_previous %}
+                <a href="{% url 'car_wash:cars_list' %}?page={{ cars.previous_page_number }}">Previous page</a>
+            {% endif %}
+            {% if cars.has_next %}
+                <a href="{% url 'car_wash:cars_list' %}?page={{ cars.next_page_number }}">Next Page</a>
+            {% endif %}
 		</div>
 	</div>
 

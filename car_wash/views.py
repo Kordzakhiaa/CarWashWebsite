@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.core.paginator import Paginator, EmptyPage
 from .forms import OrderForm, CarForm
 from django.db.models import Q
 from django.shortcuts import render, redirect
@@ -37,7 +38,15 @@ def order_list(request):
 
 def cars_list(request):
     cars = Car.objects.all()
-    return render(request, 'cars.html', {'cars': cars})
+    p = Paginator(cars, 8)
+
+    # print('quantity of pages :', p.num_pages)
+    page_num = request.GET.get('page', 1)
+    try:
+        page = p.page(page_num)
+    except EmptyPage:
+        page = p.page(1)
+    return render(request, 'cars.html', {'cars': page})
 
 
 def customer(request):
