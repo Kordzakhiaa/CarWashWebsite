@@ -39,8 +39,28 @@
 					</tr>
 				{% endfor %}
 			</table>
-            <br>
-        <strong>If you want to see our washers details, Please click on their names</strong>
+            <nav aria-label="...">
+          <ul class="pagination">
+            <li class="page-item {% if not prev_page_url %} disabled {% endif %}">
+                <a class="page-link" href="{{ prev_page_url }}" tabindex="-1">Previous</a>
+            </li>
+
+              {% for i in order.paginator.page_range %}
+                  {% if order.number == i %}
+                      <li class="page-item active">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}<span class="sr-only">(current)</span></a>
+                      </li>
+                  {% elif i > order.number|add:-3 and i < order.number|add:3 %}
+                      <li class="page-item">
+                          <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                      </li>
+                  {% endif %}
+              {% endfor %}
+                <li class="page-item {% if not next_page_url %} disabled {% endif %}">
+                    <a class="page-link" href="{{ next_page_url }}">Next</a>
+                </li>
+          </ul>
+        </nav>
 		</div>
 	</div>
 

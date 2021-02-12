@@ -33,7 +33,30 @@ def washer_detail(request, pk: int):
 
 def order_list(request):
     orders = Order.objects.all()
-    return render(request, 'order_list.html', {'orders': orders})
+    p = Paginator(orders, 3)
+
+    page_num = request.GET.get('page', 1)
+    try:
+        page = p.page(page_num)
+    except EmptyPage:
+        page = p.page(1)
+
+    if page.has_next():
+        next_url = f'?page={page.next_page_number()}'
+    else:
+        next_url = ''
+
+    if page.has_previous():
+        prev_url = f'?page={page.previous_page_number()}'
+    else:
+        prev_url = ''
+
+    return render(request, 'order_list.html',
+                  {
+                      'orders': page,
+                      'next_page_url': next_url,
+                      'prev_page_url': prev_url
+                  })
 
 
 def cars_list(request):
@@ -46,7 +69,23 @@ def cars_list(request):
         page = p.page(page_num)
     except EmptyPage:
         page = p.page(1)
-    return render(request, 'cars.html', {'cars': page})
+
+    if page.has_next():
+        next_url = f'?page={page.next_page_number()}'
+    else:
+        next_url = ''
+
+    if page.has_previous():
+        prev_url = f'?page={page.previous_page_number()}'
+    else:
+        prev_url = ''
+
+    return render(request, 'cars.html',
+                  {
+                      'cars': page,
+                      'next_page_url': next_url,
+                      'prev_page_url': prev_url
+                  })
 
 
 def customer(request):
