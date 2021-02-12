@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% load static %}
+    <br>
+    <br>
+    <br>
+    <br>
+<a style='display:inline' class="btn btn-success float-right" href="{% url 'car_wash:add_car' %}" >+ Add Car</a>
+<div class="col-md-11">
+		<h3><strong>Cars</strong></h3>
+		<hr>
+		<div class="card card-body">
+            <table class="table">
+				<tr>
+                    <th>ID</th>
+                    <th>Car Type</th>
+					<th>License Plate</th>
+				</tr>
+				{% for car in cars %}
+					<tr>
+                        <td>{{ car.pk }}.</td>
+						<td>{{ car.car_type }}</td>
+                        <td>{{ car.license_plate }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+            <br>
+		</div>
+	</div>
+
+{% endblock body %}

@@ -32,8 +32,12 @@ def washer_detail(request, pk: int):
 
 def order_list(request):
     orders = Order.objects.all()
-
     return render(request, 'order_list.html', {'orders': orders})
+
+
+def cars_list(request):
+    cars = Car.objects.all()
+    return render(request, 'cars.html', {'cars': cars})
 
 
 def customer(request):
