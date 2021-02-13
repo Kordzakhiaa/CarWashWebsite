@@ -8,8 +8,14 @@
     <br>
 <a style='display:inline' class="btn btn-success float-right" href="{% url 'car_wash:create_order' %}" >+ Add Order</a>
 <div class="col-md-11">
-		<h3><strong>All Orders</strong></h3>
+		<h3><strong><a href="{% url 'car_wash:order_list' %}">All Orders</a></strong></h3>
 		<hr>
+        <form action="">
+              <div class = "form-group">
+                  <input type="search" name="q">
+                  <button class = "btn btn-info" >Search</button>
+              </div>
+        </form>
 		<div class="card card-body">
             <table class="table">
 				<tr>
@@ -28,14 +34,14 @@
 					<tr>
                         <td>{{ order.pk }}.</td>
 						<td>{{ order.customer }}</td>
-						<td>{{ order.car }}</td>
-						<td><a href="{% url 'car_wash:washer-detail' order.washer.id %}" class="btn"><img src="{% static 'images/washer.png' %}" height="70">{{ order.washer }}</a></td>
-						<td>{{ order.wash_type }}</td>
+                        <td>{{ order.car }}</td>
+                        <td><a href="{% url 'car_wash:washer-detail' order.washer.id %}" class="btn"><img src="{% static 'images/washer.png' %}" height="70">{{ order.washer }}</a></td>
+                        <td>{{ order.wash_type }}</td>
 						<td>{{ order.order_start_date }}</td>
 						<td>{{ order.order_end_date }}</td>
 						<td>{{ order.status }}</td>
-                        <td><a class="btn btn-sm btn-info" href="{% url 'car_wash:update_order' order.id %}" >Update</a></td>
-						<td><a class="btn btn-sm btn-danger" href="{% url 'car_wash:delete_order' order.id %}" >Delete</a></td>
+                        <td><a class="btn btn-sm btn-outline-info" href="{% url 'car_wash:update_order' order.id %}" >Update</a></td>
+						<td><a class="btn btn-sm btn-outline-danger" href="{% url 'car_wash:delete_order' order.id %}" >Delete</a></td>
 					</tr>
 				{% endfor %}
 			</table>

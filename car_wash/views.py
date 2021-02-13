@@ -2,7 +2,6 @@ from datetime import datetime
 
 from django.core.paginator import Paginator, EmptyPage
 from .forms import OrderForm, CarForm
-from django.db.models import Q
 from django.shortcuts import render, redirect
 from .models import *
 from car_wash.get_date import date
@@ -16,10 +15,12 @@ def washer_detail(request, pk: int):
     washer_by_id = CarWasher.objects.get(pk=pk)
     filter_by_washer_name = Order.objects.filter(washer__name=washer_by_id.name)
     earned_money = 0
+
     for i in filter_by_washer_name:
         earned_money += i.order_price
     orders = washer_by_id.orders.all()
     today = datetime.today()
+
     context = {
         'washer_by_id': washer_by_id,
         'earned_money': earned_money,
@@ -33,6 +34,9 @@ def washer_detail(request, pk: int):
 
 def order_list(request):
     orders = Order.objects.all()
+    q = request.GET.get('q')
+    if q:
+        orders = Order.objects.filter(washer__name__icontains=q)
     p = Paginator(orders, 3)
 
     page_num = request.GET.get('page', 1)
@@ -124,15 +128,6 @@ def delete_order(request, pk: int):
         return redirect('car_wash:order_list')
     context = {'order': order}
     return render(request, 'delete.html', context)
-
-
-# def search(request):
-#     washer_q = Q()
-#     q = request.GET.get('q')
-#
-#     if q:
-#         washer_q &= Order.objects.filter(Q(washer__name__icontains=q))
-#     return render(request, 'order_list.html', {'names': washer_q})
 
 
 def add_car(request):

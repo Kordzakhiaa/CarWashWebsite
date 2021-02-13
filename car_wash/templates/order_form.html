@@ -9,7 +9,31 @@
     <br>
     <form action="" method="POST" >
         {% csrf_token %}
-        {{ form }}
-        <input class="btn btn-sm btn-success" type="submit" name="submit">
+        <br>
+        <br>
+        <div class="card card-body">
+        <table>
+            <tr>
+                <th>Customer</th>
+                <th>Car</th>
+                <th>Washer</th>
+                <th>Wash Type</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Order Status</th>
+            </tr>
+            <tr>
+                <th>{{ form.customer }}</th>
+                <th>{{ form.car }}</th>
+                <th>{{ form.washer }}</th>
+                <th>{{ form.wash_type }}</th>
+                <th>{{ form.order_start_date }}</th>
+                <th>{{ form.order_end_date }}</th>
+                <th>{{ form.status }}</th>
+            </tr>
+        </table>
+        </div>
+
+        <input class="btn btn-success" type="submit" name="submit">
     </form>
 {% endblock body %}

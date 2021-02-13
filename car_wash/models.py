@@ -41,6 +41,11 @@ class Car(models.Model):
 
  
 class Order(models.Model):
+    STATUS = [
+        ('In Process', 'In Process'),
+        ('Cancelled', 'Cancelled'),
+        ('Finished', 'Finished'),
+    ]
     car = models.ForeignKey(Car, on_delete=models.PROTECT, related_name='orders', default=None)
     washer = models.ForeignKey(CarWasher, on_delete=models.CASCADE, related_name='orders')
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, related_name='orders')
@@ -49,7 +54,7 @@ class Order(models.Model):
     created_date = models.DateTimeField(auto_now=True, verbose_name=_("Created Date"))
     order_start_date = models.DateTimeField(verbose_name=_("Start time"))
     order_end_date = models.DateTimeField(verbose_name=_("End time"))
-    status = models.CharField(max_length=200, default=None)
+    status = models.CharField(max_length=200, choices=STATUS)
 
     def __str__(self):
         return f"{self.customer}'s car {self.car} using {str(self.wash_type).lower()} washing package"

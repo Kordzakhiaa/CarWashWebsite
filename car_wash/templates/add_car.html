@@ -7,9 +7,11 @@
     <br>
     <br>
     <br>
+    <h2>Add Car</h2>
+    <br>
     <form action="" method="POST" >
         {% csrf_token %}
-        {{ form }}
+        <strong>{{ form }}</strong>
         <input class="btn btn-sm btn-success" type="submit" name="submit">
     </form>
 {% endblock body %}
