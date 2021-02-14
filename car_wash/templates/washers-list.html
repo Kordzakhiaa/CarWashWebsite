@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<style>
+   img{
+   height:150px;
+   width:100%;
+   }
+   div [class^="col-"]{
+   padding-left:5px;
+   padding-right:5px;
+   }
+   .card{
+   transition:0.5s;
+   cursor:pointer;
+   }
+   .card-title{
+   font-size:17px;
+   transition:1s;
+   cursor:pointer;
+   }
+   .card-title i{
+   font-size:15px;
+   transition:1s;
+   cursor:pointer;
+   color:#ffa710
+   }
+   .card-title i:hover{
+   transform: scale(1.25) rotate(100deg);
+   color:#18d4ca;
+   }
+   .card:hover{
+   transform: scale(1.05);
+   box-shadow: 10px 10px 15px rgba(0,0,0,0.3);
+   }
+   .card-text{
+   height:40px;
+   }
+   .card::before, .card::after {
+   position: absolute;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   transform: scale3d(0, 0, 1);
+   transition: transform .3s ease-out 0s;
+   background: rgba(255, 255, 255, 0.1);
+   content: '';
+   pointer-events: none;
+   }
+   .card::before {
+   transform-origin: left top;
+   }
+   .card::after {
+   transform-origin: right bottom;
+   }
+   .card:hover::before, .card:hover::after, .card:focus::before, .card:focus::after {
+   transform: scale3d(1, 1, 1);
+   }
+</style>
+
+<br>
+<br>
+<br>
+<div class="container mt-10">
+   {% for washer in washers %}
+   <br>
+       {% if forloop.counter0|divisibleby:4 %}
+       <div class="row">
+       {% endif %}
+          <div class="col-md-3 col-sm-6">
+             <div class="card card-block">
+                <img src="{% static 'images/washmen.jpg' %}" alt="Photo of sunset">
+                <h5 class="card-title mt-3 mb-3">{{ washer.name }}</h5>
+                <p class="card-text">I have washed {{ washer.orders.count }} cars</p>
+                <div class="card-action">
+                   <strong><a href="{% url 'car_wash:washer-detail' washer.id %}" class="btn btn-sm btn-outline-primary">Read More</a></strong>
+                </div>
+             </div>
+          </div>
+       {% if forloop.counter|divisibleby:4 or forloop.last %}
+       </div>
+       {% endif %}
+   {% endfor %}
+            <nav aria-label="...">
+              <ul class="pagination">
+                <li class="page-item {% if not prev_page_url %} disabled {% endif %}">
+                        <a class="page-link" href="{{ prev_page_url }}" tabindex="-1">Previous</a>
+                </li>
+
+                  {% for i in cars.paginator.page_range %}
+                      {% if cars.number == i %}
+                          <li class="page-item active">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}<span class="sr-only">(current)</span></a>
+                          </li>
+                      {% elif i > cars.number|add:-3 and i < cars.number|add:3 %}
+                          <li class="page-item">
+                              <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                          </li>
+                      {% endif %}
+                  {% endfor %}
+
+                <li class="page-item {% if not next_page_url %} disabled {% endif %}">
+                        <a class="page-link" href="{{ next_page_url }}">Next</a>
+                </li>
+              </ul>
+            </nav>
+</div>
+{% endblock body %}

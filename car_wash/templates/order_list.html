@@ -53,12 +53,12 @@
                 <a class="page-link" href="{{ prev_page_url }}" tabindex="-1">Previous</a>
             </li>
 
-              {% for i in order.paginator.page_range %}
+              {% for i in orders.paginator.page_range %}
                   {% if order.number == i %}
                       <li class="page-item active">
                         <a class="page-link" href="?page={{ i }}">{{ i }}<span class="sr-only">(current)</span></a>
                       </li>
-                  {% elif i > order.number|add:-3 and i < order.number|add:3 %}
+                  {% elif i > orders.number|add:-3 and i < orders.number|add:3 %}
                       <li class="page-item">
                           <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                       </li>

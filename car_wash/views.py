@@ -1,7 +1,6 @@
 from datetime import datetime
 
-from django.db.models import Sum
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.core.paginator import Paginator, EmptyPage
 from .forms import OrderForm, CarForm
 from django.shortcuts import render, redirect
@@ -13,23 +12,43 @@ def home(request):
     return render(request, 'home.html')
 
 
+def washers_list(request):
+    washers = CarWasher.objects.all()
+    q = request.GET.get('q')
+    if q:
+        washers = Order.objects.filter(Q(washer__name__istartswith=q) | Q(customer__name__istartswith=q))
+    p = Paginator(washers, 3)
+
+    page_num = request.GET.get('page', 1)
+    try:
+        page = p.page(page_num)
+    except EmptyPage:
+        page = p.page(1)
+
+    if page.has_next():
+        next_url = f'?page={page.next_page_number()}'
+    else:
+        next_url = ''
+
+    if page.has_previous():
+        prev_url = f'?page={page.previous_page_number()}'
+    else:
+        prev_url = ''
+
+    return render(request, 'washers-list.html', {'washers': washers})
+
+
 def washer_detail(request, pk: int):
     washer_by_id = CarWasher.objects.get(pk=pk)
-    filter_by_washer_name = Order.objects.filter(washer__name=washer_by_id.name)
-    earned_money = 0
-
-    for i in filter_by_washer_name:
-        earned_money += i.order_price
     orders = washer_by_id.orders.all()
     today = datetime.today()
 
     context = {
         'washer_by_id': washer_by_id,
-        'earned_money': earned_money,
-        'today': orders.filter(created_date__range=[date(1), today]).aggregate(salary=Sum('order_price')).get('salary'),
-        'weekly': orders.filter(created_date__range=[date(7), today]).aggregate(salary=Sum('order_price')).get('salary'),
-        'monthly': orders.filter(created_date__range=[date(30), today]).aggregate(salary=Sum('order_price')).get('salary'),
-        'yearly': orders.filter(created_date__range=[date(365), today]).aggregate(salary=Sum('order_price')).get('salary'),
+        'today_earned': orders.filter(created_date__range=[date(1), today]).aggregate(salary=Sum('order_price')).get('salary'),
+        'weekly_earned': orders.filter(created_date__range=[date(7), today]).aggregate(salary=Sum('order_price')).get('salary'),
+        'monthly_earned': orders.filter(created_date__range=[date(30), today]).aggregate(salary=Sum('order_price')).get('salary'),
+        'yearly_earned': orders.filter(created_date__range=[date(365), today]).aggregate(salary=Sum('order_price')).get('salary'),
     }
     return render(request, 'washer_details.html', context)
 

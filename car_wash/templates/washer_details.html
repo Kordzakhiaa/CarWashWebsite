@@ -16,7 +16,6 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Washed Cars</th>
-                    <th>Earned Money</th>
                     <th>Today Earned</th>
                     <th>Weekly Earned</th>
                     <th>Monthly Earned</th>
@@ -26,11 +25,10 @@
                     <td>{{ washer_by_id.id }}</td>
 					<td>{{ washer_by_id.name }}</td>
                     <td>{{ washer_by_id.orders.count }}</td>
-                    <td>{{ earned_money}}</td>
-                    <td>{{ today }}</td>
-                    <td>{{ weekly }}</td>
-                    <td>{{ monthly }}</td>
-                    <td>{{ yearly }}</td>
+                    <td>{{ today_earned }}</td>
+                    <td>{{ weekly_earned }}</td>
+                    <td>{{ monthly_earned }}</td>
+                    <td>{{ yearly_earned }}</td>
                 </tr>
 			</table>
 		</div>
