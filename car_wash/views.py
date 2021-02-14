@@ -58,7 +58,7 @@ def order_list(request):
     q = request.GET.get('q')
     if q:
         orders = Order.objects.filter(Q(washer__name__istartswith=q) | Q(customer__name__istartswith=q))
-    p = Paginator(orders, 3)
+    p = Paginator(orders, 5 )
 
     page_num = request.GET.get('page', 1)
     try:
@@ -86,7 +86,7 @@ def order_list(request):
 
 def cars_list(request):
     cars = Car.objects.all()
-    p = Paginator(cars, 8)
+    p = Paginator(cars, 10)
 
     # print('quantity of pages :', p.num_pages)
     page_num = request.GET.get('page', 1)

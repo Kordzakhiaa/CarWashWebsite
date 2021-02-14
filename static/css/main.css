@@ -13,10 +13,11 @@
      left: auto !important;
      right: 0px;
  }
-     body{
+ body{
     background-image: url('/static/images/background.jpg');
     background-repeat: no-repeat;
     background-size: 1500px 750px;
+     background-attachment: fixed;
 }
  .navbar {
     background: rgba(0,0,0,0.5);
