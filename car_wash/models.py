@@ -56,6 +56,9 @@ class Order(models.Model):
     order_end_date = models.DateTimeField(verbose_name=_("End time"))
     status = models.CharField(max_length=200, choices=STATUS)
 
+    class Meta:
+        ordering = ['-created_date']
+
     def __str__(self):
         return f"{self.customer}'s car {self.car} using {str(self.wash_type).lower()} washing package"
 

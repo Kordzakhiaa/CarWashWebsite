@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from django.db.models import Sum
+from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage
 from .forms import OrderForm, CarForm
 from django.shortcuts import render, redirect
@@ -24,10 +26,10 @@ def washer_detail(request, pk: int):
     context = {
         'washer_by_id': washer_by_id,
         'earned_money': earned_money,
-        'today': orders.filter(created_date__range=[date(1), today]).count(),
-        'weekly': orders.filter(created_date__range=[date(7), today]).count(),
-        'monthly': orders.filter(created_date__range=[date(30), today]).count(),
-        'yearly': orders.filter(created_date__range=[date(365), today]).count()
+        'today': orders.filter(created_date__range=[date(1), today]).aggregate(salary=Sum('order_price')).get('salary'),
+        'weekly': orders.filter(created_date__range=[date(7), today]).aggregate(salary=Sum('order_price')).get('salary'),
+        'monthly': orders.filter(created_date__range=[date(30), today]).aggregate(salary=Sum('order_price')).get('salary'),
+        'yearly': orders.filter(created_date__range=[date(365), today]).aggregate(salary=Sum('order_price')).get('salary'),
     }
     return render(request, 'washer_details.html', context)
 
@@ -36,7 +38,7 @@ def order_list(request):
     orders = Order.objects.all()
     q = request.GET.get('q')
     if q:
-        orders = Order.objects.filter(washer__name__icontains=q)
+        orders = Order.objects.filter(Q(washer__name__istartswith=q) | Q(customer__name__istartswith=q))
     p = Paginator(orders, 3)
 
     page_num = request.GET.get('page', 1)

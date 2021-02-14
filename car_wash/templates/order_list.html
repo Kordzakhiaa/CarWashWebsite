@@ -12,7 +12,9 @@
 		<hr>
         <form action="">
               <div class = "form-group">
-                  <input type="search" name="q">
+                  <label>
+                      <input type="search" name="q">
+                  </label>
                   <button class = "btn btn-info" >Search</button>
               </div>
         </form>
@@ -35,7 +37,7 @@
                         <td>{{ order.pk }}.</td>
 						<td>{{ order.customer }}</td>
                         <td>{{ order.car }}</td>
-                        <td><a href="{% url 'car_wash:washer-detail' order.washer.id %}" class="btn"><img src="{% static 'images/washer.png' %}" height="70">{{ order.washer }}</a></td>
+                        <td><a href="{% url 'car_wash:washer-detail' order.washer.id %}" class="btn"><img src="{% static 'images/washer.png' %}" height="70" alt="">{{ order.washer }}</a></td>
                         <td>{{ order.wash_type }}</td>
 						<td>{{ order.order_start_date }}</td>
 						<td>{{ order.order_end_date }}</td>
