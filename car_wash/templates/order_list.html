@@ -35,7 +35,7 @@
 				{% for order in orders %}
 					<tr>
                         <td>{{ order.pk }}.</td>
-						<td>{{ order.customer }}</td>
+						<td>{{ order.car.owner }}</td>
                         <td>{{ order.car }}</td>
                         <td><a href="{% url 'car_wash:washer-detail' order.washer.id %}" class="btn"><img src="{% static 'images/washer.png' %}" height="70" alt="">{{ order.washer }}</a></td>
                         <td>{{ order.wash_type }}</td>

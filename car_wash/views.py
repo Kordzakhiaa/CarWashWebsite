@@ -16,7 +16,7 @@ def washers_list(request):
     washers = CarWasher.objects.all()
     q = request.GET.get('q')
     if q:
-        washers = Order.objects.filter(Q(washer__name__istartswith=q) | Q(customer__name__istartswith=q))
+        washers = Order.objects.filter(Q(washer__name__istartswith=q) | Q(car__owner__name__istartswith=q))
     p = Paginator(washers, 3)
 
     page_num = request.GET.get('page', 1)
@@ -57,7 +57,7 @@ def order_list(request):
     orders = Order.objects.all()
     q = request.GET.get('q')
     if q:
-        orders = Order.objects.filter(Q(washer__name__istartswith=q) | Q(customer__name__istartswith=q))
+        orders = Order.objects.filter(Q(washer__name__istartswith=q) | Q(car__owner__name__istartswith=q))
     p = Paginator(orders, 5 )
 
     page_num = request.GET.get('page', 1)

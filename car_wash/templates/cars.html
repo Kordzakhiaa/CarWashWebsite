@@ -14,15 +14,16 @@
             <table class="table">
 				<tr>
                     <th>ID</th>
+                    <th>Owner</th>
+                    <th>License Plate</th>
                     <th>Car Type</th>
-					<th>License Plate</th>
 				</tr>
 				{% for car in cars %}
 					<tr>
                         <td>{{ car.pk }}.</td>
-                        <td>{{ car. }}</td>
-						<td>{{ car.car_type }}</td>
+                        <td>{{ car.owner }}</td>
                         <td>{{ car.license_plate }}</td>
+                        <td>{{ car.car_type }}</td>
 					</tr>
 				{% endfor %}
 			</table>

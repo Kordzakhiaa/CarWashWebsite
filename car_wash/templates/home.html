@@ -16,9 +16,10 @@
         opacity: .8;
     }
     .card {
-        padding: 14px;
         text-align: center;
-        width: 20rem;
+        width: 18rem;
+        margin-left: auto;
+        top: 35px;
     }
     .row {
         display: flex;
@@ -35,23 +36,31 @@
                 <img src="{% static 'images/home.png' %}" class="card-img-top" alt="Card image cap" />
                 <div class="card-body">
                     <h4 class="card-title">Orders</h4>
-                    <p class="card-text">To see our car wash company orders list and washers click here.</p>
-                    <a href="{% url 'car_wash:order_list' %}" class="btn btn-primary stretched-link">See Orders</a>
+                    <p class="card-text">To see our car wash company orders list click here.</p>
+                    <a href="{% url 'car_wash:order_list' %}" class="btn btn-primary stretched-link">Orders</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
-            <div class="card-container mx-auto mt-6">
-                <div class="card">
-                    <img src="{% static 'images/home_r.png' %}" class="card-img-top" alt="Card image cap" />
-                    <div class="card-body">
-                        <h4 class="card-title">Cars</h4>
-                        <p class="card-text">Here is cars list and you can add your car and then place an order.</p>
-                        <a href="{% url 'car_wash:cars_list' %}" class="btn btn-primary stretched-link">Cars list</a>
-                    </div>
+        <div class="card-container mx-auto mt-6">
+            <div class="card">
+                <img src="{% static 'images/washmen.jpg' %}" class="card-img-top" alt="Card image cap" />
+                <div class="card-body">
+                    <h4 class="card-title">Washers</h4>
+                    <p class="card-text">If you want to see our washers click here.</p>
+                    <a href="{% url 'car_wash:washers_list' %}" class="btn btn-primary stretched-link">Washers</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-container mx-auto mt-6">
+            <div class="card">
+                <img src="{% static 'images/home_r.png' %}" class="card-img-top" alt="Card image cap" />
+                <div class="card-body">
+                    <h4 class="card-title">Cars</h4>
+                    <p class="card-text">Here is cars list and you can add your car and then place an order.</p>
+                    <a href="{% url 'car_wash:cars_list' %}" class="btn btn-primary stretched-link">Cars</a>
                 </div>
             </div>
         </div>
     </div>
-{% endblock body %}
 </div>
+{% endblock body %}

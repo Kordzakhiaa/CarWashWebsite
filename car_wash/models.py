@@ -33,6 +33,7 @@ class CarType(models.Model):
 
 
 class Car(models.Model):
+    owner = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name=_('Car Owner'), default=None)
     car_type = models.ForeignKey(CarType, on_delete=models.SET_NULL, null=True)
     license_plate = models.CharField(max_length=30, null=False)
 
@@ -48,7 +49,6 @@ class Order(models.Model):
     ]
     car = models.ForeignKey(Car, on_delete=models.PROTECT, related_name='orders', default=None)
     washer = models.ForeignKey(CarWasher, on_delete=models.CASCADE, related_name='orders')
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, related_name='orders')
     wash_type = models.ForeignKey(WashType, on_delete=models.PROTECT, related_name='orders', default=None)
     order_price = models.DecimalField(max_digits=4, decimal_places=2, verbose_name=_("Price"), default=None, blank=True)
     created_date = models.DateTimeField(auto_now=True, verbose_name=_("Created Date"))
@@ -60,7 +60,7 @@ class Order(models.Model):
         ordering = ['-created_date']
 
     def __str__(self):
-        return f"{self.customer}'s car {self.car} using {str(self.wash_type).lower()} washing package"
+        return f"{self.car.owner}'s car {self.car} using {str(self.wash_type).lower()} washing package"
 
     def save(self, *args, **kwargs):
         if not self.pk:
