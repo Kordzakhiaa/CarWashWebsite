@@ -12,6 +12,14 @@ def home(request):
     return render(request, 'home.html')
 
 
+def register_page(request):
+    return render(request, 'register.html')
+
+
+def login_page(request):
+    return render(request, 'login.html')
+
+
 def washers_list(request):
     washers = CarWasher.objects.all()
     q = request.GET.get('q')

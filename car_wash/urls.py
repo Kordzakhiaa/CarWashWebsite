@@ -6,6 +6,9 @@ app_name = 'car_wash'
 
 urlpatterns = [
     path('', view=home, name='home'),
+    path('register/', view=register_page, name='register_page'),
+    path('login/', view=login_page, name='login_page'),
+
     path('order_list/', view=order_list, name='order_list'),
     path('customers/', view=customer, name='customer'),
     path('create_order/', view=create_order, name='create_order'),
