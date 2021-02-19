@@ -33,6 +33,12 @@
                             <input type="submit" name="submit" id="submit" class="form-submit" value="Login"/>
                         </div>
                     </form>
+                    <div class="alert alert-success">
+                        {% for message in messages %}
+                            <strong><p id="messages">{{ message }}</p></strong>
+                        {% endfor %}
+                    </div>
+
                     <p class="Signup here">
                         Have already an account ? <a href="{% url 'car_wash:register_page' %}" class="signup-link">Signup here</a>
                     </p>

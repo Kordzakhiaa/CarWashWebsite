@@ -1,8 +1,9 @@
 from datetime import datetime
 
+from django.contrib import messages
 from django.db.models import Q, Sum
 from django.core.paginator import Paginator, EmptyPage
-from .forms import OrderForm, CarForm
+from .forms import OrderForm, CarForm, CreateUserForm
 from django.shortcuts import render, redirect
 from .models import *
 from car_wash.get_date import date
@@ -12,12 +13,22 @@ def home(request):
     return render(request, 'home.html')
 
 
-def register_page(request):
-    return render(request, 'register.html')
-
-
 def login_page(request):
     return render(request, 'login.html')
+
+
+def register_page(request):
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request, f'Account was created for {user}')
+            return redirect('car_wash:login_page')
+
+    context = {'form': form}
+    return render(request, 'register.html', context)
 
 
 def washers_list(request):
@@ -53,10 +64,14 @@ def washer_detail(request, pk: int):
 
     context = {
         'washer_by_id': washer_by_id,
-        'today_earned': orders.filter(created_date__range=[date(1), today]).aggregate(salary=Sum('order_price')).get('salary'),
-        'weekly_earned': orders.filter(created_date__range=[date(7), today]).aggregate(salary=Sum('order_price')).get('salary'),
-        'monthly_earned': orders.filter(created_date__range=[date(30), today]).aggregate(salary=Sum('order_price')).get('salary'),
-        'yearly_earned': orders.filter(created_date__range=[date(365), today]).aggregate(salary=Sum('order_price')).get('salary'),
+        'today_earned': orders.filter(created_date__range=[date(1), today]).aggregate(salary=Sum('order_price')).get(
+            'salary'),
+        'weekly_earned': orders.filter(created_date__range=[date(7), today]).aggregate(salary=Sum('order_price')).get(
+            'salary'),
+        'monthly_earned': orders.filter(created_date__range=[date(30), today]).aggregate(salary=Sum('order_price')).get(
+            'salary'),
+        'yearly_earned': orders.filter(created_date__range=[date(365), today]).aggregate(salary=Sum('order_price')).get(
+            'salary'),
     }
     return render(request, 'washer_details.html', context)
 
@@ -66,7 +81,7 @@ def order_list(request):
     q = request.GET.get('q')
     if q:
         orders = Order.objects.filter(Q(washer__name__istartswith=q) | Q(car__owner__name__istartswith=q))
-    p = Paginator(orders, 5 )
+    p = Paginator(orders, 5)
 
     page_num = request.GET.get('page', 1)
     try:
